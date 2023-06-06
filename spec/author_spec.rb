@@ -16,5 +16,10 @@ describe Author do
     it 'initializes the items array as empty' do
       expect(author.items).to be_empty
     end
+    it 'adds the item to the author\'s items' do
+      item = Item.new('Genre', author, 'Source', 'Label', '2022-01-01')
+      author.add_item(item)
+      expect(author.items).to include(item)
+    end
   end
 end
