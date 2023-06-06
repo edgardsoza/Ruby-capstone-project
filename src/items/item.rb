@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This class represents an item.
 class Item
   attr_accessor :id, :genre, :author, :source, :label, :publish_date, :archived
