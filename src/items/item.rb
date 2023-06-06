@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+# This class represents an item.
 class Item
   attr_accessor :id, :genre, :author, :source, :label, :publish_date, :archived
 
+  # rubocop:disable Metrics/ParameterLists
   def initialize(id, genre, author, source, label, publish_date)
     @id = id
     @genre = genre
@@ -13,6 +15,7 @@ class Item
     @archived = false
   end
 
+  # rubocop:enable Metrics/ParameterLists
   def can_be_archived?
     (Time.now - @publish_date) > (10 * 365 * 24 * 60 * 60)
   end
