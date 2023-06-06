@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This class represents a label associated with items.
 class Label
   attr_accessor :id, :title, :color, :items
