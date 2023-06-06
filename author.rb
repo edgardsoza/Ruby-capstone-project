@@ -1,16 +1,19 @@
-class Author
-attr_accessor :first_name, :last_name
-attr_reader :items, :id
+# frozen_string_literal: true
 
-def initialize(first_name, last_name)
+# author class
+class Author
+  attr_accessor :first_name, :last_name
+  attr_reader :items, :id
+
+  def initialize(first_name, last_name)
     @id = Random.rand(1..1000)
     @first_name = first_name
     @last_name = last_name
     @items = []
-end
+  end
 
-def add_item(item)
+  def add_item(item)
     @items << item
     item.author = self
-end
+  end
 end
