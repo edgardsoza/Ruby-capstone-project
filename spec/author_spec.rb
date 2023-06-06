@@ -5,7 +5,7 @@ require_relative '../game'
 
 describe Author do
   author = Author.new('Jose', 'Perez')
-    context 'Testing the Auth' do
+  context 'Testing the Auth' do
     it 'The initialize method should create a new author with name and last name' do
       expect(author.first_name).to eq 'Jose'
       expect(author.last_name).to eq 'Perez'
