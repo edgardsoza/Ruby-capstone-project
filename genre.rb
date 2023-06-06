@@ -1,12 +1,13 @@
 require_relative 'item'
 
 class Genre
-    def initialize(id, name, items=[])
+    attr_accessor :id, :name, :items
+    def initialize(name, id = Random.rand(1..10_000) )
         @id = id
         @name = name
-        @items = items
+        @items = []
     end
     add_item(item)
-    
+    @items << item
     end
 end
