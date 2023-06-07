@@ -3,10 +3,10 @@ require_relative 'item'
 class MusicAlbum < Item
   attr_accessor :on_spotify, :genre
 
-  def initialize(on_spotify, name, publish_date, id = Random.rand(1..10_000))
-    super(name, publish_date, id)
+  def initialize(name, on_spotify, publish_date, id = nil)
     @genre = genre
     @on_spotify = on_spotify
+    super(name, publish_date, id)
   end
 
   def add_genre(id, genres)

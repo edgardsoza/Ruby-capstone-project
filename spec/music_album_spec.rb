@@ -1,7 +1,7 @@
 require_relative '../music_album'
 
 describe MusicAlbum do
-  music = MusicAlbum.new(true, 'The Wall', 1979, 1)
+  music = MusicAlbum.new('The Wall', true, 1979)
   context 'when initialized' do
     it 'should have a publish date' do
       expect(music.publish_date).to eq(1979)
