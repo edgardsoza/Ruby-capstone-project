@@ -40,7 +40,7 @@ class Application
     game_tojson = {
       id: game.id, last_played_at: game.last_played_at, multiplayer: game.multiplayer
     }
-    if File.exist?('/data/game_list.json')
+    if File.exist?('./data/game_list.json')
       file = File.exist?('./data/game_list.json') ? JSON.parse(File.read('./data/game_list.json')) : []
       file.push(game_tojson)
       File.write('./data/game_list.json', JSON.pretty_generate(file))
@@ -77,8 +77,8 @@ class Application
     author_tojson = {
       first_name: author.first_name, last_name: author.last_name
     }
-    if File.exist?('/data/author_list.json')
-      file = File.exist?('./data/author_list.json') ? JSON.parse(File.read('./data/author_list.json')) : []
+    if File.exist?('./data/author_list.json')
+      file = JSON.parse(File.read('./data/author_list.json'))
       file.push(author_tojson)
       File.write('./data/author_list.json', JSON.pretty_generate(file))
     else
