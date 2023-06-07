@@ -27,7 +27,7 @@ In this project, we will create a console app that will help you to keep a recor
 
 # 📖 Ruby-capstone-project - Catalog of my things <a name="about-project"></a>
 
-**Ruby-capstone-project - Catalog of my things** ia an app that will help you to keep a record of different types of things you own: books, music albums, movies, and games. 
+**Ruby-capstone-project - Catalog of my things** is an app that will help you to keep a record of different types of things you own: books, music albums, movies, and games. 
 
 ## 🛠 Built With <a name="built-with"></a>
 
