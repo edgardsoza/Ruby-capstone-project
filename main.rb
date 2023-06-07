@@ -2,8 +2,7 @@
 
 # Main class
 class Main
-  def initialize
-  end
+  def initialize; end
 
   def menu
     puts 'Welcome to my application - Catalog of my things'
