@@ -1,24 +1,25 @@
-# frozen_string_literal: true
+require 'date'
 
 class Item
-  attr_accessor :id, :name, :archived, :genre, :author, :source, :label, :publish_date
+  attr_accessor :genre, :author, :label, :publish_date
+  attr_reader :id, :archived
 
-  def initialize(name, publish_date, id = Random.rand(1..10_000))
+  def initialize(publish_date)
     @publish_date = publish_date
     @id = id
-    @name = name
     @archived = false
   end
 
-  def add_genre(id)
-    @genre = id
-  end
-
-  def can_be_archived?
-    @publish_date > 10.years.ago
+  def add_genre(genre)
+    genre.items << self unless genre.items.include?(self)
+    @genre = genre
   end
 
   def move_to_archive
     @archived = can_be_archived? ? true : false
+  end
+
+  def can_be_archived?
+    Date.today.year - Date.parse(publish_date).year >= 10
   end
 end
