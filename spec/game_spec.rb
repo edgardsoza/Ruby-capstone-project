@@ -11,9 +11,9 @@ describe Game do
       expect(game.multiplayer).to eq(true)
     end
     it 'testing the last_played_at attribute' do
-        expect(game.last_played_at).to eq(last_played_at)
+      expect(game.last_played_at).to eq(last_played_at)
     end
-        it 'returns true if the parent\'s method returns true and last_played_at is older than 2 years' do
+    it 'returns true if the parent\'s method returns true and last_played_at is older than 2 years' do
       allow(game).to receive(:super).and_return(true)
       expect(game.can_be_archived?).to eq(false)
     end
