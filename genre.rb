@@ -1,16 +1,14 @@
-require_relative 'item'
-
 class Genre
-  attr_accessor :id, :name, :items
+  attr_accessor :name, :items, :id
 
   def initialize(name, id = nil)
-    @id = id
+    @id = id || rand(1..1000)
     @name = name
     @items = []
   end
 
   def add_item(item)
+    item.genre = self unless item.genre == self
     @items << item
-    item.genre = self
   end
 end
