@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This implements the source class
 class Source
   attr_reader :id, :name

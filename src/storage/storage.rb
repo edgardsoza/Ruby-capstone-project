@@ -1,11 +1,9 @@
-# frozen_string_literal: true
-
 # storage.rb
 require 'json'
 
 # This implements the storage class
 class Storage
-  DATA_FOLDER = 'data'
+  DATA_FOLDER = 'data'.freeze
 
   def self.load_data(file_name)
     file_path = "#{DATA_FOLDER}/#{file_name}.json"
@@ -15,7 +13,7 @@ class Storage
   end
 
   def self.save_data(file_name, data)
-    Dir.mkdir(DATA_FOLDER) unless Dir.exist?(DATA_FOLDER)
+    FileUtils.mkdir_p(DATA_FOLDER)
     file_path = "#{DATA_FOLDER}/#{file_name}.json"
     File.write(file_path, JSON.pretty_generate(data))
   end

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Define Author class
 class Author
   attr_reader :id, :first_name, :last_name

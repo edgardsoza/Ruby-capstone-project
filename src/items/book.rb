@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative './item'
 
 # This code construct implements the Book class

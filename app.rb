@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative './src/storage/storage'
 
 require_relative './src/bibliography/author'
