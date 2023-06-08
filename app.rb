@@ -3,10 +3,9 @@ require 'json'
 require_relative 'logics'
 require_relative 'data_module'
 
-class Application 
-  
-include DataModule
-include MainMethods
+class Application
+  include DataModule
+  include MainMethods
 
   def initialize
     @main_menu_options = [
@@ -28,23 +27,23 @@ include MainMethods
       puts "#{option[:value]}) #{option[:name]}"
     end
   end
-  
+
   def valid_iput?(input, main_menu_options)
     valid_options = main_menu_options.map { |option| option[:value].to_s }
     valid_options.include?(input)
   end
-  
+
   def get_user_input(main_menu_options)
     input = gets.chomp
     loop do
       break if valid_iput?(input, main_menu_options)
-  
+
       puts 'please enter a valid option'
       input = gets.chomp
     end
     input
   end
-  
+
   def start
     print_menu('Please select options', @main_menu_options)
     input = get_user_input(@main_menu_options)
@@ -66,4 +65,3 @@ include MainMethods
     end
   end
 end
-
