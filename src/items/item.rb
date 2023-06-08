@@ -23,4 +23,11 @@ class Item
   def move_to_archive
     @archived = can_be_archived? ? true : false
   end
+
+  def self.from_hash(hash)
+    new(
+      hash['id'],
+      hash['title']
+    )
+  end
 end

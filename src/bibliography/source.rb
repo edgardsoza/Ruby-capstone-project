@@ -14,4 +14,17 @@ class Source
     @items << item
     item.source = self
   end
+
+  def to_hash
+    {
+      'id' => id,
+      'name' => name
+    }
+  end
+
+  def self.from_hash(hash)
+    id = hash['id']
+    name = hash['name']
+    Source.new(id, name)
+  end
 end

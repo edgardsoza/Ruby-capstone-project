@@ -15,4 +15,19 @@ class Label
     @items << item
     item.label = self
   end
+
+  def to_hash
+    {
+      'id' => id,
+      'title' => title,
+      'color' => color
+    }
+  end
+
+  def self.from_hash(hash)
+    id = hash['id']
+    title = hash['title']
+    color = hash['color']
+    Label.new(id, title, color)
+  end
 end
