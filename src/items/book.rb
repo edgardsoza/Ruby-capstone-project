@@ -8,7 +8,7 @@ class Book < Item
 
   # rubocop:disable Metrics/ParameterLists
   def initialize(id, title, author, genre, source, publish_date, publisher, cover_state)
-    super(id, title)
+    super(id, title, author, genre, source, publish_date, publisher, cover_state)
     @author = author
     @genre = genre
     @source = source
