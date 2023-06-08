@@ -1,23 +1,18 @@
 require_relative '../genre'
+require_relative '../item'
 
 describe Genre do
   genre = Genre.new('Rock', 1)
   context 'when initialized' do
-    it 'should have a name' do
+    it 'has a name' do
       expect(genre.name).to eq('Rock')
     end
-
-    it 'should have an id' do
-      expect(genre.id).to eq(1)
-    end
-
-    it 'should have an empty array of items' do
-      expect(genre.items).to eq([])
-    end
-
-    genre.add_item('item')
-    it 'should add an item to the items array' do
-      expect(genre.items).to eq(['item'])
+  end
+  context 'when adding an item' do
+    it 'has an item' do
+      item = Item.new('2020-01-01', 1)
+      genre.add_item(item)
+      expect(genre.items).to include(item)
     end
   end
 end

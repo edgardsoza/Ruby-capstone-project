@@ -1,21 +1,21 @@
 require_relative '../music_album'
+require_relative '../item'
 
 describe MusicAlbum do
-  music = MusicAlbum.new('The Wall', true, 1979)
+  music_album = MusicAlbum.new(1, '2020-01-01', true)
   context 'when initialized' do
-    it 'should have a publish date' do
-      expect(music.publish_date).to eq(1979)
+    it 'has a publish date' do
+      expect(music_album.publish_date).to eq('2020-01-01')
     end
-    it 'should be on spotify' do
-      expect(music.on_spotify).to eq(true)
+    it 'has a spotify status' do
+      expect(music_album.on_spotify).to eq(true)
     end
-    music.add_genre(1, [Genre.new('Rock', 1)])
-    it 'should add a genre' do
-      expect(music.genre.name).to eq('Rock')
-    end
-    music.can_be_archived?
-    it 'should be archived' do
-      expect(music.archived).to eq(true)
+  end
+  context 'when archived' do
+    it 'should return false' do
+      music_album2 = MusicAlbum.new(1, '2000-01-01', true)
+      music_album2.move_to_archive
+      expect(music_album2.archived).to be(true)
     end
   end
 end

@@ -16,10 +16,11 @@ class Item
   end
 
   def move_to_archive
-    @archived = can_be_archived
+    @archived = true if can_be_archived?
   end
 
   def can_be_archived?
     Date.today.year - Date.parse(publish_date).year >= 10
   end
+  private :can_be_archived?
 end
