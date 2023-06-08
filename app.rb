@@ -1,5 +1,4 @@
 require 'json'
-
 require_relative 'logics'
 require_relative 'data_module'
 
@@ -15,7 +14,6 @@ class Application
       { name: 'Add a genre', value: 4 },
       { name: 'Quit', value: 5 }
     ]
-
 
     @genres = load_genres
     @music_albums = load_music_albums
@@ -37,7 +35,6 @@ class Application
     input = gets.chomp
     loop do
       break if valid_iput?(input, main_menu_options)
-
       puts 'please enter a valid option'
       input = gets.chomp
     end
