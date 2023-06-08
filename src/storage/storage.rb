@@ -1,117 +1,127 @@
+require 'json'
 require_relative '../items/book'
-require_relative '../items/music_album'
-require_relative '../items/movie'
-require_relative '../items/game'
+require_relative '../items/item'
+require_relative '../bibliography/author'
 require_relative '../bibliography/genre'
 require_relative '../bibliography/label'
-require_relative '../bibliography/author'
 require_relative '../bibliography/source'
 
 class Storage
-  attr_reader :genres, :labels, :authors, :sources
+  DATA_FILES = %w[genres.json authors.json sources.json labels.json items.json].freeze
 
   def initialize
     @genres = []
-    @labels = []
     @authors = []
     @sources = []
+    @labels = []
+    @items = []
   end
 
-  def add_item(item)
-    case item
-    when Book
-      add_book(item)
-    when MusicAlbum
-      add_music_album(item)
-    when Movie
-      add_movie(item)
-    when Game
-      add_game(item)
+  def load_data_from_files
+    DATA_FILES.each do |file|
+      next unless File.exist?(file)
+
+      data = JSON.parse(File.read(file))
+      send("load_#{file.gsub('.json', '')}", data)
     end
   end
 
   def save_data_to_files
-    save_to_file('genres.txt', @genres)
-    save_to_file('labels.txt', @labels)
-    save_to_file('authors.txt', @authors)
-    save_to_file('sources.txt', @sources)
+    DATA_FILES.each do |file|
+      data = send("data_to_#{file.gsub('.json', '')}")
+      file_path = File.join('src', 'storage', file)
+      File.write(file_path, JSON.generate(data))
+    end
   end
+  
 
   private
 
-  def add_book(book)
-    genre = find_or_create_genre(book.genre)
-    genre.items << book
-
-    author = find_or_create_author(book.author)
-    author.items << book
-  end
-
-  def add_music_album(album)
-    genre = find_or_create_genre(album.genre)
-    genre.items << album
-
-    label = find_or_create_label(album.label)
-    label.items << album
-  end
-
-  def add_movie(movie)
-    genre = find_or_create_genre(movie.genre)
-    genre.items << movie
-
-    source = find_or_create_source(movie.source)
-    source.items << movie
-  end
-
-  def add_game(game)
-    genre = find_or_create_genre(game.genre)
-    genre.items << game
-
-    source = find_or_create_source(game.source)
-    source.items << game
-  end
-
-  def find_or_create_genre(name)
-    genre = @genres.find { |g| g.name == name }
-    if genre.nil?
-      genre = Genre.new(name)
+  def load_genres(data)
+    data.each do |genre_data|
+      genre = Genre.new(genre_data['id'], genre_data['name'])
       @genres << genre
     end
-    genre
   end
 
-  def find_or_create_label(title)
-    label = @labels.find { |l| l.title == title }
-    if label.nil?
-      label = Label.new(title)
-      @labels << label
-    end
-    label
-  end
-
-  def find_or_create_author(name)
-    author = @authors.find { |a| a.name == name }
-    if author.nil?
-      author = Author.new(name)
+  def load_authors(data)
+    data.each do |author_data|
+      author = Author.new(author_data['id'], author_data['first_name'], author_data['last_name'])
       @authors << author
     end
-    author
   end
 
-  def find_or_create_source(title)
-    source = @sources.find { |s| s.title == title }
-    if source.nil?
-      source = Source.new(title)
+  def load_sources(data)
+    data.each do |source_data|
+      source = Source.new(source_data['id'], source_data['name'])
       @sources << source
     end
-    source
   end
 
-  def save_to_file(filename, items)
-    File.open(filename, 'w') do |file|
-      items.each do |item|
-        file.puts(item.to_s)
-      end
+  def load_labels(data)
+    data.each do |label_data|
+      label = Label.new(label_data['id'], label_data['title'], label_data['color'])
+      @labels << label
+    end
+  end
+
+  def load_items(data)
+    data.each do |item_data|
+      genre_id = item_data['genre']['id']
+      genre = @genres.find { |g| g.id == genre_id }
+
+      author_id = item_data['author']['id']
+      author = @authors.find { |a| a.id == author_id }
+
+      source_id = item_data['source']['id']
+      source = @sources.find { |s| s.id == source_id }
+
+      label_id = item_data['label']['id']
+      label = @labels.find { |l| l.id == label_id }
+
+      item = case item_data['type']
+             when 'Book'
+               Book.new(item_data['id'], genre, author, source, label, item_data['publish_date'], item_data['archived'], item_data['cover_state'])
+
+             end
+
+      genre.add_item(item)
+      author.add_item(item)
+      source.add_item(item)
+      label.add_item(item)
+      @items << item
+    end
+  end
+
+  def data_to_genres
+    @genres.map { |g| { 'id' => g.id, 'name' => g.name } }
+  end
+
+  def data_to_authors
+    @authors.map { |a| { 'id' => a.id, 'first_name' => a.first_name, 'last_name' => a.last_name } }
+  end
+
+  def data_to_sources
+    @sources.map { |s| { 'id' => s.id, 'name' => s.name } }
+  end
+
+  def data_to_labels
+    @labels.map { |l| { 'id' => l.id, 'title' => l.title, 'color' => l.color } }
+  end
+
+  def data_to_items
+    @items.map do |i|
+      {
+        'id' => i.id,
+        'genre' => { 'id' => i.genre.id, 'name' => i.genre.name },
+        'author' => { 'id' => i.author.id, 'first_name' => i.author.first_name, 'last_name' => i.author.last_name },
+        'source' => { 'id' => i.source.id, 'name' => i.source.name },
+        'label' => { 'id' => i.label.id, 'title' => i.label.title, 'color' => i.label.color },
+        'publish_date' => i.publish_date.to_s,
+        'archived' => i.archived,
+        'cover_state' => i.cover_state,
+        'type' => i.class.to_s
+      }
     end
   end
 end
