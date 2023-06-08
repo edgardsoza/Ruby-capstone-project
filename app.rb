@@ -35,6 +35,7 @@ class Application
     input = gets.chomp
     loop do
       break if valid_iput?(input, main_menu_options)
+      
       puts 'please enter a valid option'
       input = gets.chomp
     end
