@@ -15,3 +15,14 @@ CREATE TABLE Genres(
 );
 
 alter table music_albums add constraint fk_genre_id foreign key (genre_id) references genres(id);
+CREATE TABLE author (
+  id INT GENERATED ALWAYS AS IDENTITY,
+  first_name VARCHAR(30),
+  last_name VARCHAR(30),
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE game (
+  multiplayer BOOLEAN,
+  last_played_at DATE,
+)

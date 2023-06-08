@@ -8,6 +8,10 @@ class Item
     @id = id || rand(1..1000)
     @publish_date = publish_date
     @archived = archived
+    @genre = genre
+    @author = author
+    @source = source
+    @label = label
   end
 
   def add_genre=(genre)
