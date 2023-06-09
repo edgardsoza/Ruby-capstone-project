@@ -189,11 +189,9 @@ class Application
       puts 'The book cannot be archived.'
     end
     puts 'Book added successfully!'
-    wait_for_keypress
-    clear_screen
   end
 
-  def add_label(book)
+  def add_label(_book)
     print 'Enter Book Title: '
     title = gets.chomp
     print 'Enter Book Color: '
