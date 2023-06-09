@@ -4,7 +4,6 @@ require 'json'
 module DataModule
   def album_to_hash(album)
     {
-      id: album.id,
       publish_date: album.publish_date,
       on_spotify: album.on_spotify
     }
@@ -29,7 +28,7 @@ module DataModule
     data = []
     if File.exist?('./data/albums.json') && !File.empty?('./data/albums.json')
       JSON.parse(File.read('./data/albums.json')).each do |album|
-        data.push(MusicAlbum.new(album['id'], album['publish_date'], album['on_spotify']))
+        data.push(MusicAlbum.new(album['publish_date'], album['on_spotify']))
       end
     end
     data

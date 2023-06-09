@@ -10,7 +10,7 @@ describe Genre do
   end
   context 'when adding an item' do
     it 'has an item' do
-      item = Item.new('2020-01-01', 1)
+      item = Item.new('2020-01-01')
       genre.add_item(item)
       expect(genre.items).to include(item)
     end
