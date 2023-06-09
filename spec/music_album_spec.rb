@@ -1,5 +1,5 @@
-require_relative '../music_album'
-require_relative '../item'
+require_relative '../classes/music_album'
+require_relative '../classes/item'
 
 describe MusicAlbum do
   music_album = MusicAlbum.new('2020-01-01', true)
