@@ -179,6 +179,7 @@ class Application
     cover_state = gets.chomp
     books = Storage.load_data('books') || []
     book = Book.new(publish_date, publisher, cover_state)
+    add_label(book)
     books << book.to_hash
     Storage.save_data('books', books)
 
@@ -192,12 +193,35 @@ class Application
     clear_screen
   end
 
+  def add_label(book)
+    print 'Enter Book Title: '
+    title = gets.chomp
+    print 'Enter Book Color: '
+    color = gets.chomp
+    labels = Storage.load_data('labels') || []
+    label = Label.new(title, color)
+    labels << label.to_hash
+    Storage.save_data('labels', labels)
+    wait_for_keypress
+    clear_screen
+  end
+
   def list_all_books
     books = Storage.load_data('books') || []
     puts 'Listing all books:'
     books.each do |book_data|
       book = Book.from_hash(book_data)
       puts "Published Date: #{book.publish_date}, Publisher: #{book.publisher}, Cover State: #{book.cover_state}"
+    end
+    wait_for_keypress
+    clear_screen
+  end
+
+  def list_all_labels
+    labels = Storage.load_data('labels') || []
+    puts 'Listing all labels:'
+    labels.each do |label_data|
+      puts "ID: #{label_data['id']}, Title: #{label_data['title']}, Color: #{label_data['color']}"
     end
     wait_for_keypress
     clear_screen

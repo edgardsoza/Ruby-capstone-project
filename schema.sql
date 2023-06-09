@@ -1,3 +1,5 @@
+
+
 CREATE TABLE music_albums(
     id SERIAL PRIMARY KEY,
     publish_date VARCHAR(60),
