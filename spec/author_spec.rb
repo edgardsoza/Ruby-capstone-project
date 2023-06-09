@@ -1,5 +1,5 @@
-require_relative '../author'
-require_relative '../game'
+require_relative '../classes/author'
+require_relative '../classes/game'
 
 describe Author do
   author = Author.new('Jose', 'Perez')
@@ -15,7 +15,7 @@ describe Author do
       expect(author.items).to be_empty
     end
     it 'adds the item to the author\'s items' do
-      item = Item.new('Genre', author, 'Source', 'Label', '2022-01-01')
+      item = Item.new('2022-01-01')
       author.add_item(item)
       expect(author.items).to include(item)
     end
