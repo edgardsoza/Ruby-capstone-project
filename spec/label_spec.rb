@@ -33,7 +33,7 @@ describe Label do
       label.add_item(item)
       expect(label.items).to include(item)
     end
-  
+
     it 'sets the label of the item to the current label' do
       label_title = 'Important'
       label_color = 'red'
