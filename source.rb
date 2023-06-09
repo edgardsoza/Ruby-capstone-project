@@ -1,6 +1,7 @@
 # This implements the source class
 class Source
-  attr_reader :id, :name
+  attr_accessor :name
+  attr_reader :id
 
   def initialize(id, name)
     @id = id

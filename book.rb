@@ -1,20 +1,14 @@
-require_relative './item'
+require_relative 'item'
 
 # This code construct implements the Book class
 class Book < Item
-  attr_accessor :author, :genre, :source, :publish_date, :publisher, :cover_state
+  attr_accessor :cover_state, :publisher
 
-  # rubocop:disable Metrics/ParameterLists
-  def initialize(id, title, author, genre, source, publish_date, publisher, cover_state)
-    super(id, title, author, genre, source, publish_date, publisher, cover_state)
-    @author = author
-    @genre = genre
-    @source = source
-    @publish_date = publish_date
-    @publisher = publisher
+  def initialize(publish_date, cover_state, publisher)
+    super(publish_date)
     @cover_state = cover_state
+    @publisher = publisher
   end
-  # rubocop:enable Metrics/ParameterLists
 
   def can_be_archived?
     super || @cover_state == 'bad'

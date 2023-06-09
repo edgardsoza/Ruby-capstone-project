@@ -23,5 +23,12 @@ class Item
   def can_be_archived?
     Date.today.year - Date.parse(publish_date).year >= 10
   end
+
+  def self.from_hash(hash)
+    new(
+      hash['id'],
+      hash['title']
+    )
+  end
   private :can_be_archived?
 end

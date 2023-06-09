@@ -1,9 +1,10 @@
 # This class represents a label associated with items.
 class Label
-  attr_reader :id, :title, :color
+  attr_accessor :title, :color, :item
+  attr_reader :id
 
-  def initialize(id, title, color)
-    @id = id
+  def initialize(title, color)
+    @id = Random.rand(1..1000)
     @title = title
     @color = color
     @items = []
