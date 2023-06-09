@@ -1,5 +1,6 @@
 require 'json'
 
+# Data Module
 module DataModule
   def album_to_hash(album)
     {

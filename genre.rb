@@ -1,3 +1,4 @@
+# Genre class
 class Genre
   attr_accessor :name, :items, :id
 

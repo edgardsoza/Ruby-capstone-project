@@ -1,11 +1,5 @@
 require_relative 'app'
 
-def main
-  app = Application.new
-  app.start
-end
-
-main
 # Main class
 class Main
   def initialize
@@ -19,7 +13,7 @@ class Main
     1 - List all books \n    2 - List all music albums \n    3 - List all games \n    4 - List all genres
     5 - List all labels \n    6 - List all authors \n    7 - Add a book
     8 - Add a music album
-    9 - Add a game \n   10 - Add an author \n   11 - Exit "
+    9 - Add a game \n   10 - Add Genre \n   11 - Add an author \n   12 - Exit"
   end
 
   def prompt
@@ -39,11 +33,11 @@ class Main
       '7' => :add_book,
       '8' => :add_music_album,
       '9' => :add_game,
-      '10' => :add_author }
+      '10' => :add_genre, '11' => :add_author }
   end
 
   def options(choice)
-    if choice == '11'
+    if choice == '12'
       exit
     elsif hash_options[choice]
       @app.send(hash_options[choice])

@@ -1,5 +1,6 @@
 require 'date'
 
+# Item class
 class Item
   attr_accessor :publish_date, :genre, :label
   attr_reader :id, :archived, :author

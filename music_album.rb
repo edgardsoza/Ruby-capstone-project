@@ -1,5 +1,6 @@
 require_relative 'item'
 
+# Music Album class
 class MusicAlbum < Item
   attr_accessor :genre, :author, :source, :label, :archived
   attr_reader :id, :publish_date, :on_spotify

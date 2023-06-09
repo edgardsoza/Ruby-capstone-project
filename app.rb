@@ -1,78 +1,15 @@
 require 'json'
-require_relative 'logics'
-require_relative 'data_module'
-
-class Application
-  include DataModule
-  include MainMethods
-
-  def initialize
-    @main_menu_options = [
-      { name: 'List all music albums', value: 1 },
-      { name: 'List all genres', value: 2 },
-      { name: 'Add a music album', value: 3 },
-      { name: 'Add a genre', value: 4 },
-      { name: 'Quit', value: 5 }
-    ]
-
-    @genres = load_genres
-    @music_albums = load_music_albums
-  end
-
-  def print_menu(title, main_menu_options)
-    puts title
-    main_menu_options.each do |option|
-      puts "#{option[:value]}) #{option[:name]}"
-    end
-  end
-
-  def valid_iput?(input, main_menu_options)
-    valid_options = main_menu_options.map { |option| option[:value].to_s }
-    valid_options.include?(input)
-  end
-
-  def get_user_input(main_menu_options)
-    input = gets.chomp
-    loop do
-      break if valid_iput?(input, main_menu_options)
-
-      puts 'please enter a valid option'
-      input = gets.chomp
-    end
-    input
-  end
-
-  def start
-    print_menu('Please select options', @main_menu_options)
-    input = get_user_input(@main_menu_options)
-    case input
-    when '1'
-      list_music_albums(@music_albums)
-    when '2'
-      list_genres(@genres)
-    when '3'
-      @music_albums.push(add_music_album)
-      store_music_albums
-    when '4'
-      @genres.push(add_genre)
-      store_genres
-    when '5'
-      store_music_albums
-      store_genres
-      exit
-    end
-  end
 require_relative 'game'
 require_relative 'author'
+require_relative 'data_module'
 
 # class application
 class Application
+  include DataModule
   attr_reader :books, :games, :music_albums, :genres, :labels
 
   def initialize
-    @books = []
-    @games = []
-    @music_albums = []
+    @books = [], @games = [], @music_albums = []
     @genres = []
     @labels = []
     @authors = []
@@ -160,5 +97,49 @@ class Application
       end
     end
     wait_for_keypress
+  end
+
+  # create a method for list all the music albums
+  def list_all_music_albums(music_albums)
+    puts 'No music albums found' if music_albums.empty?
+
+    puts 'LIST OF MUSIC ALBUMS:'
+    @music_albums.each_with_index do |music_album, index|
+      puts "#{index + 1} Publish date: #{music_album.publish_date}, On spotify: #{music_album.on_spotify}"
+    end
+    puts '------------------'
+  end
+
+  # create a method for list all the genres
+  def list_all_genres(genres)
+    return 'No genres found' if genres.empty?
+
+    genres.each_with_index do |genre, index|
+      puts "#{index + 1} ID: #{genre.id}, Name: #{genre.name}"
+    end
+    puts '------------------'
+  end
+
+  # create a method for add a music album
+  def add_music_album
+    puts 'Please enter the pushlish date[YYYY-MM-DD]'
+    publish_date = gets.chomp
+    puts 'Please enter if the album is on spotify [y/n]'
+    on_spotify1 = gets.chomp
+    case on_spotify1
+    when 'y'
+      on_spotify = true
+    when 'n'
+      on_spotify = false
+    else
+      puts 'Please enter a valid option'
+    end
+    MusicAlbum.new(0, publish_date, on_spotify)
+  end
+
+  def add_genre
+    puts 'Please enter the name of the genre'
+    name = gets.chomp
+    Genre.new(name)
   end
 end
