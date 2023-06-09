@@ -4,6 +4,9 @@ require_relative 'author'
 require_relative 'data_module'
 require_relative 'music_album'
 require_relative 'genre'
+require_relative 'book'
+require_relative 'storage'
+require_relative 'label'
 
 # class application
 class Application
@@ -162,6 +165,40 @@ class Application
     @genres << genre
     store_genres
     puts 'Genre entered successfully'
+    wait_for_keypress
+    clear_screen
+  end
+
+  def add_book
+    puts 'Adding a book:'
+    puts 'Enter the published date (YYYY-MM-DD):'
+    publish_date = gets.chomp
+    puts 'Enter the publisher:'
+    publisher = gets.chomp
+    puts 'Enter the cover state:'
+    cover_state = gets.chomp
+    books = Storage.load_data('books') || []
+    book = Book.new(publish_date, publisher, cover_state)
+    books << book.to_hash
+    Storage.save_data('books', books)
+
+    if book.can_be_archived?
+      puts 'The book can be archived.'
+    else
+      puts 'The book cannot be archived.'
+    end
+    puts 'Book added successfully!'
+    wait_for_keypress
+    clear_screen
+  end
+
+  def list_all_books
+    books = Storage.load_data('books') || []
+    puts 'Listing all books:'
+    books.each do |book_data|
+      book = Book.from_hash(book_data)
+      puts "Published Date: #{book.publish_date}, Publisher: #{book.publisher}, Cover State: #{book.cover_state}"
+    end
     wait_for_keypress
     clear_screen
   end

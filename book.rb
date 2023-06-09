@@ -16,11 +16,6 @@ class Book < Item
 
   def to_hash
     {
-      'id' => id,
-      'title' => title,
-      'author' => author,
-      'genre' => genre,
-      'source' => source,
       'publish_date' => publish_date,
       'publisher' => publisher,
       'cover_state' => cover_state
@@ -29,11 +24,6 @@ class Book < Item
 
   def self.from_hash(hash)
     new(
-      hash['id'],
-      hash['title'],
-      hash['author'],
-      hash['genre'],
-      hash['source'],
       hash['publish_date'],
       hash['publisher'],
       hash['cover_state']
