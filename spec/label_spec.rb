@@ -25,22 +25,22 @@ describe Label do
         expect(label.items).to be_empty
       end
 
-      it 'adds the item to the label\'s items' do
+    it 'adds the item to the label\'s items' do
         label_title = 'Important'
         label_color = 'red'
         label = Label.new(label_title, label_color)
         item = Item.new('2022-01-01')
         label.add_item(item)
         expect(label.items).to include(item)
-      end
+    end
   
-      it 'sets the label of the item to the current label' do
+    it 'sets the label of the item to the current label' do
         label_title = 'Important'
         label_color = 'red'
         label = Label.new(label_title, label_color)
         item = Item.new('2022-01-01')
         label.add_item(item)
         expect(item.label).to eq(label)
-      end
+    end
   end
 end
