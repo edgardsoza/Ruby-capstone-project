@@ -58,9 +58,9 @@ describe Item do
     end
 
     it 'should not be moved to the archive if it cannot be archived' do
-        item = Item.new('2023-01-01')
-        item.move_to_archive
-        expect(item.archived).to be(false)
+      item = Item.new('2023-01-01')
+      item.move_to_archive
+      expect(item.archived).to be(false)
     end
   end
 end
