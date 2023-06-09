@@ -2,8 +2,8 @@ require 'date'
 
 # Item class
 class Item
-  attr_accessor :publish_date, :genre, :label, :author
-  attr_reader :id, :archived
+  attr_accessor :publish_date, :label, :author
+  attr_reader :id, :archived, :genre
 
   def initialize(publish_date)
     @id = id || rand(1..1000)
@@ -11,9 +11,9 @@ class Item
     @archived = false
   end
 
-  def add_genre=(genre)
+  def genre=(genre)
     @genre = genre
-    genre.add_item(self)
+    genre.items.push(self) unless genre.items.include?(self)
   end
 
   def move_to_archive
