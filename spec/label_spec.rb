@@ -19,28 +19,28 @@ describe Label do
     end
 
     it 'initializes the items array as empty' do
-        label_title = 'Important'
-        label_color = 'red'
-        label = Label.new(label_title, label_color)
-        expect(label.items).to be_empty
-      end
+      label_title = 'Important'
+      label_color = 'red'
+      label = Label.new(label_title, label_color)
+      expect(label.items).to be_empty
+    end
 
     it 'adds the item to the label\'s items' do
-        label_title = 'Important'
-        label_color = 'red'
-        label = Label.new(label_title, label_color)
-        item = Item.new('2022-01-01')
-        label.add_item(item)
-        expect(label.items).to include(item)
+      label_title = 'Important'
+      label_color = 'red'
+      label = Label.new(label_title, label_color)
+      item = Item.new('2022-01-01')
+      label.add_item(item)
+      expect(label.items).to include(item)
     end
   
     it 'sets the label of the item to the current label' do
-        label_title = 'Important'
-        label_color = 'red'
-        label = Label.new(label_title, label_color)
-        item = Item.new('2022-01-01')
-        label.add_item(item)
-        expect(item.label).to eq(label)
+      label_title = 'Important'
+      label_color = 'red'
+      label = Label.new(label_title, label_color)
+      item = Item.new('2022-01-01')
+      label.add_item(item)
+      expect(item.label).to eq(label)
     end
   end
 end
