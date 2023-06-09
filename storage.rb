@@ -1,5 +1,6 @@
 # storage.rb
 require 'json'
+require 'fileutils'
 
 # This implements the storage class
 class Storage
