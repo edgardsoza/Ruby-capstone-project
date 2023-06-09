@@ -3,7 +3,7 @@ require_relative '../classes/item'
 
 describe Author do
   author = Author.new('Jose', 'Perez')
-  
+
   context 'Testing the Author class' do
     it 'should create a new author with name and last name' do
       expect(author.first_name).to eq('Jose')
@@ -61,6 +61,6 @@ describe Item do
         item = Item.new('2023-01-01')
         item.move_to_archive
         expect(item.archived).to be(false)
-      end
     end
+  end
 end
